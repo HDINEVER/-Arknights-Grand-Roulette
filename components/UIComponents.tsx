@@ -15,11 +15,11 @@ export const AKButton: React.FC<ButtonProps> = ({
 }) => {
   const baseStyle = "relative font-bold uppercase tracking-wider py-3 px-8 transition-all duration-300 clip-path-slant group overflow-hidden";
   
-  // Updated colors: Primary -> Cyan-300 (#67E8F9), Secondary -> Blue-500 (#3B82F6)
+  // Theme colors for light background
   const variants = {
-    primary: "bg-[#67E8F9] text-black hover:bg-[#22d3ee] shadow-[0_0_15px_rgba(103,232,249,0.4)] disabled:bg-slate-700 disabled:text-slate-500",
-    secondary: "bg-[#3B82F6] text-white hover:bg-[#2563eb] shadow-[0_0_15px_rgba(59,130,246,0.4)] disabled:bg-slate-700 disabled:text-slate-500",
-    outline: "bg-transparent border-2 border-[#67E8F9]/30 text-[#67E8F9] hover:border-[#67E8F9] hover:bg-[#67E8F9]/10 disabled:border-slate-700 disabled:text-slate-700"
+    primary: "bg-[#4a6a9a] text-white hover:bg-[#5a7aaa] shadow-[0_0_15px_rgba(74,106,154,0.3)] disabled:bg-slate-300 disabled:text-slate-500",
+    secondary: "bg-[#7ab3d9] text-[#1e293b] hover:bg-[#8ac3e9] shadow-[0_0_15px_rgba(122,179,217,0.3)] disabled:bg-slate-300 disabled:text-slate-500",
+    outline: "bg-transparent border-2 border-[#4a6a9a]/40 text-[#4a6a9a] hover:border-[#4a6a9a] hover:bg-[#4a6a9a]/10 disabled:border-slate-300 disabled:text-slate-400"
   };
 
   return (
@@ -41,20 +41,20 @@ export const AKButton: React.FC<ButtonProps> = ({
 
 export const AKCard: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = '' }) => {
   return (
-    <div className={`relative bg-[#0f172a]/80 backdrop-blur-md border border-[#67E8F9]/20 p-6 ${className}`}>
+    <div className={`relative bg-white/80 backdrop-blur-md border border-[#4a6a9a]/20 p-6 shadow-lg ${className}`}>
       {/* Corner accents */}
-      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#67E8F9]" />
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#67E8F9]" />
+      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#4a6a9a]" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#4a6a9a]" />
       {children}
     </div>
   );
 };
 
 export const SectionHeader: React.FC<{ title: string; subtitle?: string }> = ({ title, subtitle }) => (
-  <div className="mb-6 border-l-4 border-[#67E8F9] pl-4">
-    <h2 className="text-3xl font-black italic tracking-tighter uppercase text-white shadow-black drop-shadow-lg">
+  <div className="mb-6 border-l-4 border-[#4a6a9a] pl-4">
+    <h2 className="text-3xl font-black italic tracking-tighter uppercase text-[#2a3f5f] drop-shadow-sm">
       {title}
     </h2>
-    {subtitle && <p className="text-[#67E8F9] text-sm font-bold tracking-widest uppercase">{subtitle}</p>}
+    {subtitle && <p className="text-[#4a6a9a] text-sm font-bold tracking-widest uppercase">{subtitle}</p>}
   </div>
 );
