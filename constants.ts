@@ -7,7 +7,11 @@ export const BOSSES: BossData[] = [
   { id: '7-18', name: '爱国者', img: '/7-18.jpg', color: '#ef4444' },
   { id: 'WD-8', name: '皇帝的利刃', img: '/WD-8.jpg', color: '#1e293b' },
   { id: 'RS-8', name: '哈洛德', img: '/RS-8.jpg', color: '#a78bfa' },
+<<<<<<< HEAD
   { id: 'BI-8', name: '数值仙人快速通关', img: '/BI-8.jpg', color: '#3b82f6' },
+=======
+  { id: 'BI-8', name: '锏', img: '/BI-8.jpg', color: '#3b82f6' },
+>>>>>>> a3db497669fe7e2811ed52c486a1af46411d495d
   { id: 'AS-9', name: '祖巴伊达姆', img: '/AS-9.jpg', color: '#fde047' },
   { id: 'MB-8', name: '杰斯顿', img: '/MB-8.jpg', color: '#fb923c' },
   { id: 'IS-10', name: '扎罗', img: '/IS-10.jpg', color: '#fbbf24' },
