@@ -1,0 +1,5 @@
+{
+  "name": "Arknights Boss Lottery System (Snow Realm)",
+  "description": "A dual-mode lottery system (Wheel & CS:GO Style) featuring Arknights bosses with GSAP animations. Updated with Snow Realm theme and Chinese localization.",
+  "requestFramePermissions": []
+}
