@@ -31,20 +31,30 @@ export const WheelMode: React.FC<LotteryProps> = ({
       const winner = bosses[winnerIndex];
 
       // 2. Calculate rotations
+      // 2. Calculate rotations
       const extraSpins = 360 * 8; // 8 full spins
-      const targetSectorAngle = winnerIndex * SECTOR_ANGLE;
-      const stopAngle = -(targetSectorAngle); 
-      const randomOffset = (Math.random() - 0.5) * (SECTOR_ANGLE * 0.8);
+      
+      // Calculate target angle to align the CENTER of the winning sector to the top (0 degrees)
+      // The pointer is at 0 degrees (12 o'clock).
+      // If sector starts at `angle`, center is at `angle + SECTOR_ANGLE/2`.
+      // To bring that center to 0, we rotate backwards by that amount.
+      const sectorCenterAngle = winnerIndex * SECTOR_ANGLE + (SECTOR_ANGLE / 2);
+      const stopAngle = -sectorCenterAngle; 
+      
+      // Random offset: stay within ±40% of the sector to avoid edge cases
+      const maxOffset = SECTOR_ANGLE * 0.4;
+      const randomOffset = (Math.random() - 0.5) * 2 * maxOffset;
       
       const finalRotation = currentRotation + extraSpins + stopAngle + randomOffset;
 
       // 3. Animate
       gsap.to(wheelRef.current, {
         rotation: finalRotation,
-        duration: 5,
-        ease: "power4.inOut",
+        duration: 6,
+        ease: "expo.inOut",
         onComplete: () => {
           setIsSpinning(false);
+          // Normalize rotation to 0-360 for cleaner state, keying off the final value
           setCurrentRotation(finalRotation % 360);
           onComplete(winner);
         }

@@ -31,15 +31,32 @@ export const TapeMode: React.FC<LotteryProps> = ({
 
   useEffect(() => {
     if (isSpinning && scrollRef.current && tapeItems.length > 0) {
-      // 1. Determine winner
-      const winnerIndex = 75; 
+      // 1. Determine winner - Randomize instead of hardcoded
+      // Pick a winner from the middle-end of the tape to ensure enough scroll time
+      const minIndex = 50;
+      const maxIndex = tapeItems.length - 10;
+      const winnerIndex = Math.floor(Math.random() * (maxIndex - minIndex + 1)) + minIndex; 
       const actualWinner = tapeItems[winnerIndex];
 
       // 2. Calculate Distance
-      const containerWidth = scrollRef.current.parentElement?.clientWidth || 800;
-      const itemLeftPos = winnerIndex * (CARD_WIDTH + GAP);
-      const targetX = -(itemLeftPos - (containerWidth / 2) + (CARD_WIDTH / 2));
-      const randomOffset = (Math.random() - 0.5) * (CARD_WIDTH * 0.4); 
+      // The container centers the content via `pl-[50%]`.
+      // To center a specific item, we need to move the tape such that the item's center 
+      // aligns with the container's zero-point (which is visually the center due to padding).
+      //
+      // Initial State: Tape starts at x=0. The visual center (marker) is at CONTAINER_WIDTH/2.
+      // Item Position relative to Tape Start: winnerIndex * (ITEM_WIDTH)
+      // Item Center relative to Tape Start: winnerIndex * (ITEM_WIDTH) + ITEM_WIDTH/2
+      //
+      // We want: TapeStart + TranslateX + ItemCenter = CONTAINER_WIDTH/2
+      // However, because we have `pl-[50%]`, the "Tape Start" is visually at CONTAINER_WIDTH/2.
+      // So: (CONTAINER_WIDTH/2) + TranslateX + ItemCenter = CONTAINER_WIDTH/2
+      // Therefore: TranslateX = -ItemCenter
+      
+      const itemCenterOffset = (winnerIndex * (CARD_WIDTH + GAP)) + (CARD_WIDTH / 2);
+      const targetX = -itemCenterOffset;
+      
+      // Random offset: small variance within the card boundaries
+      const randomOffset = (Math.random() - 0.5) * (CARD_WIDTH * 0.3); 
 
       // 3. Animate
       const tl = gsap.timeline({
@@ -51,8 +68,8 @@ export const TapeMode: React.FC<LotteryProps> = ({
 
       tl.to(scrollRef.current, {
         x: targetX + randomOffset,
-        duration: 6,
-        ease: "cubic-bezier(0.15, 1, 0.3, 1)" 
+        duration: 7,
+        ease: "expo.out" 
       });
       
       tl.to(scrollRef.current, { filter: 'blur(4px)', duration: 0.5, ease: 'power2.in' }, 0);
