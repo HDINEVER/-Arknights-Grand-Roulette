@@ -63,32 +63,32 @@ export const WheelMode: React.FC<LotteryProps> = ({
   }, [isSpinning, bosses, onComplete, setIsSpinning]);
 
   return (
-    <div className="relative flex justify-center items-center py-10" ref={containerRef}>
+    <div className="relative flex justify-center items-center py-2" ref={containerRef}>
       {/* Pointer - Dark blue for light theme */}
-      <div className="absolute top-0 z-20 w-12 h-16 pointer-events-none drop-shadow-[0_0_10px_rgba(74,106,154,0.5)] transform -translate-y-1/2">
+      <div className="absolute top-0 z-20 w-10 h-12 pointer-events-none drop-shadow-[0_0_10px_rgba(74,106,154,0.5)] transform -translate-y-1/2">
         <svg viewBox="0 0 100 100" fill="#2a3f5f">
           <path d="M50 100 L0 0 L100 0 Z" />
         </svg>
       </div>
 
       {/* Outer Ring Decoration */}
-      <div className="absolute w-[540px] h-[540px] rounded-full border-4 border-dashed border-[#4a6a9a]/25 animate-spin-slow pointer-events-none" />
-      <div className="absolute w-[580px] h-[580px] rounded-full border border-[#7ab3d9]/30 pointer-events-none" />
+      <div className="absolute w-[520px] h-[520px] rounded-full border-4 border-dashed border-[#4a6a9a]/25 animate-spin-slow pointer-events-none" />
+      <div className="absolute w-[560px] h-[560px] rounded-full border border-[#7ab3d9]/30 pointer-events-none" />
 
       {/* Wheel */}
       <div 
         ref={wheelRef}
-        className="w-[500px] h-[500px] rounded-full relative overflow-hidden shadow-[0_0_40px_rgba(74,106,154,0.25)] border-8 border-[#4a6a9a] bg-[#e8f4fc]"
+        className="w-[480px] h-[480px] rounded-full relative overflow-hidden shadow-[0_0_30px_rgba(74,106,154,0.25)] border-6 border-[#4a6a9a] bg-[#e8f4fc]"
       >
         {bosses.map((boss, index) => {
           const angle = index * SECTOR_ANGLE;
           const midAngle = angle + SECTOR_ANGLE / 2;
-          // 计算文字位置（外边缘）
-          const textRadius = 200; // 文字到中心的距离
+          // 计算文字位置（外边缘）- 按比例缩放 (480/380 = 1.26)
+          const textRadius = 192; // 文字到中心的距离
           const textX = Math.sin(midAngle * Math.PI / 180) * textRadius;
           const textY = -Math.cos(midAngle * Math.PI / 180) * textRadius;
           // 计算头像位置（内部）
-          const imgRadius = 120; // 头像到中心的距离
+          const imgRadius = 115; // 头像到中心的距离
           const imgX = Math.sin(midAngle * Math.PI / 180) * imgRadius;
           const imgY = -Math.cos(midAngle * Math.PI / 180) * imgRadius;
           
@@ -113,7 +113,7 @@ export const WheelMode: React.FC<LotteryProps> = ({
                 }}
               >
                 <span 
-                  className="font-bold text-sm whitespace-nowrap"
+                  className="font-bold text-xs whitespace-nowrap"
                   style={{
                     color: '#2a3f5f',
                     textShadow: '0 1px 2px rgba(255,255,255,0.8), 0 0 8px rgba(255,255,255,0.6)',
@@ -150,9 +150,9 @@ export const WheelMode: React.FC<LotteryProps> = ({
       </div>
       
       {/* Center Hub */}
-      <div className="absolute z-10 w-24 h-24 bg-[#4a6a9a] rounded-full border-4 border-white flex items-center justify-center shadow-lg">
-        <div className="w-16 h-16 bg-[#7ab3d9] rounded-full animate-pulse shadow-[0_0_20px_rgba(122,179,217,0.5)]" />
-        <span className="absolute text-white font-bold text-xs tracking-widest">RHODES</span>
+      <div className="absolute z-10 w-18 h-18 bg-[#4a6a9a] rounded-full border-3 border-white flex items-center justify-center shadow-lg" style={{width: '90px', height: '90px'}}>
+        <div className="w-14 h-14 bg-[#7ab3d9] rounded-full animate-pulse shadow-[0_0_15px_rgba(122,179,217,0.5)]" />
+        <span className="absolute text-white font-bold text-[12px] tracking-widest">RHODES</span>
       </div>
     </div>
   );
