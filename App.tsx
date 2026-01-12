@@ -102,39 +102,39 @@ const App: React.FC = () => {
              )}
            </div>
 
-           {/* Controls Panel */}
-           <AKCard className="w-full max-w-2xl flex flex-col md:flex-row items-center justify-center gap-6">
-              <div className="flex flex-col items-start flex-1">
+           {/* Controls Panel - Centered Main Button */}
+           <AKCard className="w-full max-w-2xl flex flex-col items-center justify-center gap-6 py-8">
+              {/* Status Display */}
+              <div className="flex flex-col items-center">
                 <span className="text-[#64748b] text-xs uppercase tracking-widest mb-1">系统状态</span>
                 <span className={`text-2xl font-bold uppercase ${isSpinning ? 'text-[#4a6a9a] animate-pulse' : 'text-[#2a3f5f]'}`}>
                   {isSpinning ? '进行中...' : '就绪'}
                 </span>
               </div>
 
-              <div className="flex gap-4 w-full md:w-auto">
-                 <AKButton 
-                   onClick={handleReset} 
-                   variant="secondary"
-                   disabled={isSpinning}
-                 >
-                   重置系统
-                 </AKButton>
-                 
-                 <AKButton 
-                   onClick={handleStart} 
-                   variant="primary" 
-                   className="min-w-[200px] py-4 text-xl"
-                   disabled={isSpinning}
-                 >
-                   {isSpinning ? '连接中...' : '开始寻访'}
-                 </AKButton>
-              </div>
+              {/* Main Action Button - Prominent and Centered */}
+              <AKButton 
+                onClick={handleStart} 
+                variant="primary" 
+                className="min-w-[280px] py-5 text-2xl font-black tracking-wider transform hover:scale-105 active:scale-95 transition-transform shadow-[0_0_30px_rgba(74,106,154,0.4)] hover:shadow-[0_0_40px_rgba(74,106,154,0.6)]"
+                disabled={isSpinning}
+              >
+                {isSpinning ? '连接中...' : '⚡ 开始寻访'}
+              </AKButton>
            </AKCard>
         </div>
 
-        {/* Footer */}
-        <footer className="w-full mt-12 text-center text-[#64748b] text-xs uppercase tracking-widest border-t border-[#4a6a9a]/15 pt-6">
-          <p>© 2024 罗德岛神经网络。仅限授权人员。</p>
+        {/* Footer with Reset Button */}
+        <footer className="w-full mt-12 text-center border-t border-[#4a6a9a]/15 pt-6">
+          {/* Subtle Reset Button */}
+          <button
+            onClick={handleReset}
+            disabled={isSpinning}
+            className="text-[#94a3b8] text-xs uppercase tracking-widest hover:text-[#4a6a9a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+          >
+            [ 重置系统 ]
+          </button>
+          <p className="text-[#64748b] text-xs uppercase tracking-widest">© 2024 罗德岛神经网络。仅限授权人员。</p>
         </footer>
       </main>
 
