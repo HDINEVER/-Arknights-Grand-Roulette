@@ -81,11 +81,21 @@ export const AKCard: React.FC<{ children: React.ReactNode; className?: string }>
   );
 };
 
-export const SectionHeader: React.FC<{ title: string; subtitle?: string }> = ({ title, subtitle }) => (
-  <div className="mb-6 border-l-4 border-[#4a6a9a] pl-4">
-    <h2 className="text-3xl font-black italic tracking-tighter uppercase text-[#2a3f5f] drop-shadow-sm">
+export const SectionHeader: React.FC<{ title: string; subtitle?: string; isVip?: boolean }> = ({ title, subtitle, isVip = false }) => (
+  <div className={`mb-6 border-l-4 pl-4 ${isVip ? 'border-[#ffd700]' : 'border-[#4a6a9a]'}`}>
+    <h2 className={`text-3xl font-black italic tracking-tighter uppercase drop-shadow-sm ${
+      isVip 
+        ? 'text-[#ffd700] drop-shadow-[0_0_10px_rgba(255,215,0,0.5)]' 
+        : 'text-[#2a3f5f]'
+    }`}>
       {title}
     </h2>
-    {subtitle && <p className="text-[#4a6a9a] text-sm font-bold tracking-widest uppercase">{subtitle}</p>}
+    {subtitle && (
+      <p className={`text-sm font-bold tracking-widest uppercase ${
+        isVip ? 'text-[#ffb347]' : 'text-[#4a6a9a]'
+      }`}>
+        {subtitle}
+      </p>
+    )}
   </div>
 );

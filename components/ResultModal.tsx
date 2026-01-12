@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { BossData } from '../types';
 import { AKButton } from './UIComponents';
+import { VIPCharacterCard } from './VIPCharacterCard';
 
 interface ResultModalProps {
   result: BossData | null;
@@ -107,6 +108,12 @@ export const ResultModal: React.FC<ResultModalProps> = ({ result, onClose, isVip
     setShowCharacterCard(true);
   };
 
+  // VIP角色卡片关闭后返回主界面
+  const handleVIPCardClose = () => {
+    setShowCharacterCard(false);
+    onClose();
+  };
+
   if (!result) return null;
 
   // VIP Mode
@@ -148,8 +155,10 @@ export const ResultModal: React.FC<ResultModalProps> = ({ result, onClose, isVip
             onClick={e => e.stopPropagation()}
           >
             {/* VIP徽章 */}
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#ffd700] via-[#ffea00] to-[#ffd700] text-black px-6 py-2 rounded-full text-lg font-black shadow-[0_0_30px_rgba(255,215,0,0.6)] z-20">
-              👑 VIP 专属寻访 👑
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#ffd700] via-[#ffea00] to-[#ffd700] text-black px-8 py-3 rounded-full font-black shadow-[0_0_30px_rgba(255,215,0,0.6)] z-20 whitespace-nowrap flex items-center gap-2">
+              <span className="text-xl">👑</span>
+              <span className="text-lg tracking-wider">VIP 专属寻访</span>
+              <span className="text-xl">👑</span>
             </div>
             
             {/* Boss头像卡片 */}
@@ -188,94 +197,9 @@ export const ResultModal: React.FC<ResultModalProps> = ({ result, onClose, isVip
           </div>
         )}
 
-        {/* 第二阶段：角色卡片展示 */}
-        {vipStage === VIPStage.CHARACTER_REVEAL && (
-          <div 
-            className="relative flex flex-col items-center"
-            onClick={e => e.stopPropagation()}
-          >
-            {/* 闪光背景效果 */}
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-radial from-[#ffd700]/30 via-[#ffd700]/10 to-transparent animate-pulse" />
-              {/* 光芒射线 */}
-              {[...Array(12)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute top-1/2 left-1/2 w-1 h-80 bg-gradient-to-t from-transparent via-[#ffd700]/40 to-transparent origin-bottom"
-                  style={{
-                    transform: `translate(-50%, -100%) rotate(${i * 30}deg)`,
-                    animation: 'pulse 2s ease-in-out infinite',
-                    animationDelay: `${i * 0.1}s`
-                  }}
-                />
-              ))}
-            </div>
-
-            {/* 角色卡片 */}
-            <div 
-              ref={characterCardRef}
-              className="relative"
-              style={{ perspective: '1000px' }}
-            >
-              {/* 主卡片 */}
-              <div className="relative w-80 h-[500px] rounded-3xl overflow-hidden border-4 border-[#ffd700] shadow-[0_0_80px_rgba(255,215,0,0.6)]">
-                <img 
-                  src="/images/vip-role.png" 
-                  alt="VIP Character"
-                  className="w-full h-full object-cover"
-                  onError={(e) => { (e.target as HTMLImageElement).src = result.img; }}
-                />
-                
-                {/* 流光效果 */}
-                <div 
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  style={{
-                    animation: 'shineAcross 3s ease-in-out infinite'
-                  }}
-                />
-                
-                {/* 底部信息栏 */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-[#ffd700] text-xs font-bold tracking-widest">✦ VIP 专属 ✦</p>
-                      <h3 className="text-3xl font-black text-white">{result.name}</h3>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-[#ffd700] text-4xl">👑</div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* 角标 */}
-                <div className="absolute top-4 right-4 bg-gradient-to-r from-[#ff6b6b] to-[#ee5a24] text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg animate-bounce">
-                  限定
-                </div>
-              </div>
-              
-              {/* 装饰框 */}
-              <div className="absolute -inset-2 rounded-3xl border-2 border-[#ffd700]/50" />
-              <div className="absolute -inset-4 rounded-3xl border border-[#ffd700]/25" />
-            </div>
-
-            {/* 文字信息 */}
-            <div className="mt-8 text-center">
-              <p className="text-[#ffd700] text-lg font-bold tracking-widest animate-pulse">
-                🎉 恭喜获得稀有干员！🎉
-              </p>
-              <p className="text-gray-400 text-sm mt-2">
-                已加入您的作战序列
-              </p>
-            </div>
-
-            {/* 关闭按钮 */}
-            <button 
-              onClick={onClose}
-              className="mt-6 px-10 py-3 bg-gradient-to-r from-[#ffd700] to-[#ffb347] text-black font-bold text-lg rounded-xl transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-[0_0_30px_rgba(255,215,0,0.5)]"
-            >
-              确认招募
-            </button>
-          </div>
+        {/* 第二阶段：VIP角色卡片展示 */}
+        {vipStage === VIPStage.CHARACTER_REVEAL && showCharacterCard && (
+          <VIPCharacterCard onClose={handleVIPCardClose} />
         )}
 
         {/* Golden glow effect */}

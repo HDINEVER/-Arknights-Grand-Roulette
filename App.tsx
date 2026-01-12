@@ -11,18 +11,33 @@ const App: React.FC = () => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [result, setResult] = useState<BossData | null>(null);
   const [resetTrigger, setResetTrigger] = useState(0);
+  const [isVipMode, setIsVipMode] = useState(false);
 
   // Handlers
   const handleStart = () => {
     if (isSpinning) return;
     setResult(null);
+    setIsVipMode(false); // 普通左键点击，非VIP模式
     setIsSpinning(true);
+  };
+
+  // 中键点击触发VIP模式
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (isSpinning) return;
+    // 中键点击 (button === 1)
+    if (e.button === 1) {
+      e.preventDefault();
+      setResult(null);
+      setIsVipMode(true);
+      setIsSpinning(true);
+    }
   };
 
   const handleReset = () => {
     if (isSpinning) return;
     setResult(null);
     setIsSpinning(false);
+    setIsVipMode(false);
     setResetTrigger(prev => prev + 1);
   };
 
@@ -78,8 +93,9 @@ const App: React.FC = () => {
         {/* Main Lottery Area */}
         <div className="flex-grow flex flex-col items-center justify-center w-full max-w-6xl">
            <SectionHeader 
-             title={mode === LotteryMode.WHEEL ? "标准寻访" : "战术补给"} 
-             subtitle="等待指令授权"
+             title={isVipMode ? "👑 VIP 寻访" : (mode === LotteryMode.WHEEL ? "标准寻访" : "战术补给")} 
+             subtitle={isVipMode ? "尊贵博士专属通道" : "等待指令授权"}
+             isVip={isVipMode}
            />
 
            <div className="w-full min-h-[400px] flex items-center justify-center mb-12">
@@ -113,14 +129,22 @@ const App: React.FC = () => {
               </div>
 
               {/* Main Action Button - Prominent and Centered */}
-              <AKButton 
-                onClick={handleStart} 
-                variant="primary" 
-                className="min-w-[280px] py-5 text-2xl font-black tracking-wider transform hover:scale-105 active:scale-95 transition-transform shadow-[0_0_30px_rgba(74,106,154,0.4)] hover:shadow-[0_0_40px_rgba(74,106,154,0.6)]"
+              <button 
+                onClick={handleStart}
+                onMouseDown={handleMouseDown}
                 disabled={isSpinning}
+                className={`min-w-[280px] py-5 text-2xl font-black tracking-wider transform hover:scale-105 active:scale-95 transition-all duration-300 relative overflow-hidden
+                  ${isVipMode 
+                    ? 'vip-golden-btn rounded-2xl' 
+                    : 'bg-[#4a6a9a] text-white hover:bg-[#5a7aaa] shadow-[0_0_30px_rgba(74,106,154,0.4)] hover:shadow-[0_0_40px_rgba(74,106,154,0.6)] clip-path-slant'
+                  }
+                  disabled:opacity-50 disabled:cursor-not-allowed`}
               >
-                {isSpinning ? '连接中...' : '⚡ 开始寻访'}
-              </AKButton>
+                {isSpinning 
+                  ? (isVipMode ? '👑 VIP连接中...' : '连接中...') 
+                  : (isVipMode ? '👑 VIP 开始寻访' : '⚡ 开始寻访')
+                }
+              </button>
            </AKCard>
         </div>
 
@@ -143,7 +167,7 @@ const App: React.FC = () => {
       <div className="fixed bottom-20 right-10 w-[1px] h-64 bg-gradient-to-b from-transparent via-[#7ab3d9]/30 to-transparent" />
 
       {/* Result Overlay */}
-      <ResultModal result={result} onClose={handleReset} />
+      <ResultModal result={result} onClose={handleReset} isVip={isVipMode} />
     </div>
   );
 };
