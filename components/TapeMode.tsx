@@ -11,6 +11,7 @@ export const TapeMode: React.FC<LotteryProps> = ({
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [tapeItems, setTapeItems] = useState<BossData[]>([]);
+  const idleAnimationRef = useRef<gsap.core.Tween | null>(null);
   
   const CARD_WIDTH = 160;
   const GAP = 16;
@@ -28,6 +29,44 @@ export const TapeMode: React.FC<LotteryProps> = ({
        gsap.set(scrollRef.current, { x: 0 });
     }
   }, [bosses, resetTrigger]);
+
+  // Idle slow-scroll preview animation
+  useEffect(() => {
+    if (!isSpinning && scrollRef.current && tapeItems.length > 0) {
+      // Calculate scroll distance for a portion of the tape (first 30 items for smooth loop)
+      const scrollDistance = 30 * (CARD_WIDTH + GAP);
+      
+      // Kill any existing idle animation
+      if (idleAnimationRef.current) {
+        idleAnimationRef.current.kill();
+      }
+      
+      // Reset position for fresh start
+      gsap.set(scrollRef.current, { x: 0 });
+      
+      // Create infinite slow scroll animation
+      idleAnimationRef.current = gsap.to(scrollRef.current, {
+        x: -scrollDistance,
+        duration: 40, // 40 seconds for one cycle - very slow and relaxingre relaxed
+        ease: "none", // Linear movement for smooth preview
+        repeat: -1, // Infinite loop
+        modifiers: {
+          x: gsap.utils.unitize((x: string) => {
+            // Create seamless loop by resetting position
+            return parseFloat(x) % scrollDistance;
+          })
+        }
+      });
+    }
+    
+    // Cleanup: stop idle animation when spinning starts or component unmounts
+    return () => {
+      if (idleAnimationRef.current) {
+        idleAnimationRef.current.kill();
+        idleAnimationRef.current = null;
+      }
+    };
+  }, [isSpinning, tapeItems, CARD_WIDTH, GAP]);
 
   useEffect(() => {
     if (isSpinning && scrollRef.current && tapeItems.length > 0) {
