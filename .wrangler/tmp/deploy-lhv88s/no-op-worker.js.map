@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "sources": ["file:///C:/Users/74596/AppData/Roaming/npm/node_modules/wrangler/templates/no-op-worker.js"],
+  "sourceRoot": "D:\\\u684C\u9762\\\u7F16\u7A0B\\\u5C55\u793A\u7F51\u9875\u5F00\u53D1\\\u660E\u65E5\u65B9\u821F\u5927\u8F6C\u76D8\\-Arknights-Grand-Roulette\\.wrangler\\tmp\\deploy-lhv88s",
+  "sourcesContent": ["export default {\n\tfetch() {\n\t\treturn new Response(\"Not found\", {\n\t\t\tstatus: 404,\n\t\t\theaders: {\n\t\t\t\t\"Content-Type\": \"text/html\",\n\t\t\t},\n\t\t});\n\t},\n};\n"],
+  "mappings": ";AAAA,IAAO,uBAAQ;AAAA,EACd,QAAQ;AACP,WAAO,IAAI,SAAS,aAAa;AAAA,MAChC,QAAQ;AAAA,MACR,SAAS;AAAA,QACR,gBAAgB;AAAA,MACjB;AAAA,IACD,CAAC;AAAA,EACF;AACD;",
+  "names": []
+}
