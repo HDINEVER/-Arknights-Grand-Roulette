@@ -198,16 +198,16 @@ const App: React.FC = () => {
         )}
 
         {/* Footer with Reset Button */}
-        <footer className="w-full mt-2 text-center border-t border-[#4a6a9a]/15 pt-2">
+        <footer className="w-full mt-2 text-center pt-2">
           {/* Subtle Reset Button */}
           <button
             onClick={handleReset}
             disabled={isSpinning}
-            className="text-[#94a3b8] text-xs uppercase tracking-widest hover:text-[#4a6a9a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+            className="text-[#94a3b8] text-[10px] uppercase tracking-widest hover:text-[#4a6a9a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
           >
             [ 重置系统 ]
           </button>
-          <p className="text-[#64748b] text-xs uppercase tracking-widest">© 2024 罗德岛神经网络。仅限授权人员。</p>
+          <p className="text-[#64748b] text-[10px] uppercase tracking-widest">© 2026 罗德岛神经网络。仅限授权人员。</p>
         </footer>
       </main>
 
