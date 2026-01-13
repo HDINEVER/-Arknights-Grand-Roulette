@@ -4,6 +4,7 @@ import { BossData, LotteryMode } from './types';
 import { WheelMode } from './components/WheelMode';
 import { TapeMode } from './components/TapeMode';
 import { ResultModal } from './components/ResultModal';
+import { Snowfall } from './components/Snowfall';
 import { AKButton, AKCard, SectionHeader } from './components/UIComponents';
 
 const App: React.FC = () => {
@@ -57,6 +58,9 @@ const App: React.FC = () => {
       />
       {/* Soft overlay for light theme */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-white/60 via-[#f0f7ff]/40 to-white/70" />
+      
+      {/* Snow Effect */}
+      <Snowfall />
       
       {/* Content Layer */}
       <main className="relative z-10 container mx-auto px-4 py-3 flex-grow flex flex-col items-center overflow-hidden">
