@@ -273,7 +273,7 @@ export const VIPCharacterCard: React.FC<VIPCharacterCardProps> = ({ onClose }) =
               />
               <div>
                 <h1 className="text-6xl font-black text-white mb-2 drop-shadow-[0_0_30px_rgba(255,215,0,0.6)]">
-                  維什戴爾
+                  维什戴尔
                 </h1>
                 <p className="text-[#ffd700] text-2xl font-bold tracking-[0.4em]">Wiš'adel</p>
               </div>

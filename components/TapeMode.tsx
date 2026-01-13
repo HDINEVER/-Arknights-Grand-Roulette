@@ -78,11 +78,20 @@ export const TapeMode: React.FC<LotteryProps> = ({
   }, [isSpinning, tapeItems, bosses, onComplete, setIsSpinning]);
 
   return (
-    <div className="relative w-full max-w-5xl mx-auto h-64 overflow-hidden bg-slate-900/60 border-y-2 border-[#67E8F9]/50 flex items-center shadow-inner">
+    <div className="relative w-full max-w-5xl mx-auto h-64 overflow-hidden bg-[#0f172a] border-y-2 border-[#67E8F9]/50 flex items-center shadow-[inset_0_0_40px_rgba(0,0,0,0.8)]">
+      {/* Background Grid Texture */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none" 
+           style={{ 
+             backgroundImage: 'linear-gradient(rgba(103, 232, 249, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(103, 232, 249, 0.1) 1px, transparent 1px)',
+             backgroundSize: '20px 20px'
+           }} 
+      />
       {/* Center Marker - Changed to White/Ice */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-[#ffffff] z-20 transform -translate-x-1/2 shadow-[0_0_10px_#ffffff]" />
-      <div className="absolute left-1/2 top-4 -translate-x-1/2 z-20 text-[#ffffff] drop-shadow-lg">▼</div>
-      <div className="absolute left-1/2 bottom-4 -translate-x-1/2 z-20 text-[#ffffff] drop-shadow-lg">▲</div>
+      {/* Scanner Overlay - High Tech Viewfinder */}
+      {/* Center Marker - Vertical Ticker (CS Style) */}
+      <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-[#ffd700] z-20 transform -translate-x-1/2 shadow-[0_0_15px_#ffd700] border-x border-white/50" />
+      <div className="absolute left-1/2 top-0 -translate-x-1/2 z-20 text-[#ffd700] drop-shadow-lg text-2xl">▼</div>
+      <div className="absolute left-1/2 bottom-0 -translate-x-1/2 z-20 text-[#ffd700] drop-shadow-lg text-2xl">▲</div>
 
       {/* Tape Track */}
       <div 

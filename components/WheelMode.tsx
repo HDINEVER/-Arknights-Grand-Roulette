@@ -65,9 +65,12 @@ export const WheelMode: React.FC<LotteryProps> = ({
   return (
     <div className="relative flex justify-center items-center py-2" ref={containerRef}>
       {/* Pointer - Dark blue for light theme */}
-      <div className="absolute top-0 z-20 w-10 h-12 pointer-events-none drop-shadow-[0_0_10px_rgba(74,106,154,0.5)] transform -translate-y-1/2">
-        <svg viewBox="0 0 100 100" fill="#2a3f5f">
-          <path d="M50 100 L0 0 L100 0 Z" />
+      {/* Pointer - Enhanced Mechanical Style */}
+      <div className="absolute top-0 z-20 w-12 h-16 pointer-events-none drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] transform -translate-y-[40%]">
+        <svg viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 60L5 15H35L20 60Z" fill="#ff4d4f" stroke="#fff" strokeWidth="2"/>
+          <path d="M5 15L5 0H35L35 15L20 25L5 15Z" fill="#2a3f5f" stroke="#4a6a9a" strokeWidth="1"/>
+          <circle cx="20" cy="10" r="4" fill="#67e8f9" className="animate-pulse"/>
         </svg>
       </div>
 
@@ -78,7 +81,7 @@ export const WheelMode: React.FC<LotteryProps> = ({
       {/* Wheel */}
       <div 
         ref={wheelRef}
-        className="w-[480px] h-[480px] rounded-full relative overflow-hidden shadow-[0_0_30px_rgba(74,106,154,0.25)] border-6 border-[#4a6a9a] bg-[#e8f4fc]"
+        className="w-[480px] h-[480px] rounded-full relative overflow-hidden shadow-[0_0_50px_rgba(74,106,154,0.4)] border-4 border-[#4a6a9a] bg-[#e8f4fc] ring-4 ring-[#7ab3d9]/30"
       >
         {bosses.map((boss, index) => {
           const angle = index * SECTOR_ANGLE;
@@ -150,9 +153,15 @@ export const WheelMode: React.FC<LotteryProps> = ({
       </div>
       
       {/* Center Hub */}
-      <div className="absolute z-10 w-18 h-18 bg-[#4a6a9a] rounded-full border-3 border-white flex items-center justify-center shadow-lg" style={{width: '90px', height: '90px'}}>
-        <div className="w-14 h-14 bg-[#7ab3d9] rounded-full animate-pulse shadow-[0_0_15px_rgba(122,179,217,0.5)]" />
-        <span className="absolute text-white font-bold text-[12px] tracking-widest">RHODES</span>
+      {/* Center Hub - High Tech Bearing Look */}
+      <div className="absolute z-10 w-24 h-24 bg-[#2a3f5f] rounded-full border-4 border-[#a8d4f0] flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.4)]">
+         {/* Inner detail rings */}
+        <div className="absolute inset-2 border border-dashed border-[#67e8f9]/50 rounded-full animate-spin-slow" style={{ animationDuration: '10s' }} />
+        <div className="w-16 h-16 bg-[#1e293b] rounded-full flex items-center justify-center border border-[#4a6a9a]">
+           <div className="w-12 h-12 bg-gradient-to-br from-[#4a6a9a] to-[#2a3f5f] rounded-full shadow-inner flex items-center justify-center">
+              <span className="text-[#67e8f9] font-bold text-[10px] tracking-widest">RHODES</span>
+           </div>
+        </div>
       </div>
     </div>
   );
