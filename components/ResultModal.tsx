@@ -267,9 +267,9 @@ export const ResultModal: React.FC<ResultModalProps> = ({ result, onClose, isVip
             分配协议已启动。
           </p>
 
-          <div className="mt-8">
-            <AKButton onClick={onClose} variant="primary">
-              确认聘用
+          <div className="mt-6">
+            <AKButton onClick={onClose} variant="primary" className="py-4 px-12 text-lg">
+              确认
             </AKButton>
           </div>
         </div>

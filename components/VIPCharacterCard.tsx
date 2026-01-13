@@ -298,7 +298,7 @@ export const VIPCharacterCard: React.FC<VIPCharacterCardProps> = ({ onClose }) =
                 <span>✦</span>
                 <span className="font-bold">六星干员</span>
                 <span className="text-[#ffd700]/50">•</span>
-                <span className="font-bold">术师</span>
+                <span className="font-bold">狙击手</span>
                 <span className="text-[#ffd700]/50">•</span>
                 <span className="font-bold">VIP限定</span>
                 <span>✦</span>
