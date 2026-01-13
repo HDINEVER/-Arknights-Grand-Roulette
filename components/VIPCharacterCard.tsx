@@ -12,11 +12,20 @@ const VIP_IMAGES = [
   '/images/vip-role三阶段.png'
 ];
 
+// 获取下一个循环索引
+const getNextImageIndex = (): number => {
+  const key = 'vip_card_image_index';
+  const currentIndex = parseInt(localStorage.getItem(key) || '0', 10);
+  const nextIndex = (currentIndex + 1) % VIP_IMAGES.length;
+  localStorage.setItem(key, nextIndex.toString());
+  return currentIndex;
+};
+
 export const VIPCharacterCard: React.FC<VIPCharacterCardProps> = ({ onClose }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [selectedImage] = useState(() => VIP_IMAGES[Math.floor(Math.random() * VIP_IMAGES.length)]);
+  const [selectedImage] = useState(() => VIP_IMAGES[getNextImageIndex()]);
 
   useEffect(() => {
     // 播放语音
