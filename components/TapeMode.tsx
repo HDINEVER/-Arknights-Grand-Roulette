@@ -149,20 +149,22 @@ export const TapeMode: React.FC<LotteryProps> = ({
               borderColor: index === 75 && isSpinning ? '#ffffff' : 'rgba(103,232,249,0.1)' 
             }}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10" />
-            <img 
-              src={item.img} 
-              alt={item.name} 
-              className="w-full h-full object-cover"
-              onError={(e) => { (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${item.id}/200`; }}
-            />
-            <div className="absolute bottom-2 left-0 right-0 text-center z-20">
-               <span 
-                 className="text-white text-sm font-bold uppercase truncate px-2 block"
-                 style={{ color: item.color }}
-               >
-                 {item.name}
-               </span>
+            {/* 渐变背景文字卡片 */}
+            <div 
+              className="absolute inset-0 flex items-center justify-center p-3"
+              style={{
+                background: `linear-gradient(135deg, ${item.color}ee, ${item.color}88, #0f172a)`
+              }}
+            >
+              <span 
+                className="text-white text-sm font-bold text-center leading-tight"
+                style={{ 
+                  textShadow: '0 2px 4px rgba(0,0,0,0.8)',
+                  wordBreak: 'break-all'
+                }}
+              >
+                {item.name}
+              </span>
             </div>
             
             {/* Rarity Color Bar */}

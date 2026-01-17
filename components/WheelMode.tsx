@@ -127,7 +127,7 @@ export const WheelMode: React.FC<LotteryProps> = ({
                 </span>
               </div>
               
-              {/* Boss头像 - 内部 - 圆角矩形 */}
+              {/* 奖品文字卡片 - 内部 - 圆角矩形 */}
               <div
                 className="absolute left-1/2 top-1/2 pointer-events-none"
                 style={{
@@ -135,17 +135,23 @@ export const WheelMode: React.FC<LotteryProps> = ({
                   zIndex: 4
                 }}
               >
-                <img 
-                  src={boss.img} 
-                  alt={boss.name}
-                  className="w-14 h-14 rounded-lg border-2 border-white object-cover"
+                <div 
+                  className="w-14 h-14 rounded-lg border-2 border-white flex items-center justify-center p-1"
                   style={{
+                    background: `linear-gradient(135deg, ${boss.color}dd, ${boss.color}88)`,
                     boxShadow: '0 2px 8px rgba(74,106,154,0.3), 0 0 12px rgba(122,179,217,0.2)'
                   }}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${boss.id}/100`;
-                  }}
-                />
+                >
+                  <span 
+                    className="text-white text-[8px] font-bold text-center leading-tight"
+                    style={{
+                      textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+                      wordBreak: 'break-all'
+                    }}
+                  >
+                    {boss.name}
+                  </span>
+                </div>
               </div>
             </div>
           );
