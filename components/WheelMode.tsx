@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { BossData, LotteryProps } from '../types';
+import { selectBossByProbability } from '../utils';
 
 export const WheelMode: React.FC<LotteryProps> = ({ 
   bosses, 
@@ -26,9 +27,8 @@ export const WheelMode: React.FC<LotteryProps> = ({
 
   useEffect(() => {
     if (isSpinning && wheelRef.current) {
-      // 1. Determine winner
-      const winnerIndex = Math.floor(Math.random() * bosses.length);
-      const winner = bosses[winnerIndex];
+      // 1. Determine winner using weighted probability
+      const { winner, winnerIndex } = selectBossByProbability(bosses);
 
       // 2. Calculate rotations
       // 2. Calculate rotations

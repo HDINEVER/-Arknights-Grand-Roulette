@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { BossData, LotteryProps } from '../types';
+import { generateWeightedPool, selectBossByProbability } from '../utils';
 
 export const TapeMode: React.FC<LotteryProps> = ({
   bosses,
@@ -16,12 +17,9 @@ export const TapeMode: React.FC<LotteryProps> = ({
   const CARD_WIDTH = 160;
   const GAP = 16;
 
-  // Initialize tape items
+  // Initialize tape items with weighted probability
   useEffect(() => {
-    const pool = [];
-    for (let i = 0; i < 100; i++) {
-      pool.push(bosses[Math.floor(Math.random() * bosses.length)]);
-    }
+    const pool = generateWeightedPool(bosses, 100);
     setTapeItems(pool);
     
     // Reset position
